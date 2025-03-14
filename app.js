@@ -177,7 +177,7 @@ const inputs = document.querySelectorAll("input");
 let j = 0;
 
 // Reset funkcija koja se koristi za btnRandom i btnReset
-function resetGame() {
+function randomGame() {
   rezultat = changeOrder(randWord());
   novaRijec = rezultat.novaRijec;
   rijec = rezultat.randWord.split("");
@@ -205,7 +205,6 @@ for (let i = 0; i < inputs.length; i++) {
     if (rijec[i] !== inputs[i].value.toLowerCase()) {
       const wrongLetter = inputs[i].value;
 
-      // Provera da li je slovo već uneto u listu pogrešnih slova
       if (
         !misstakeLetters.innerHTML.includes(wrongLetter) &&
         wrongLetter !== ""
@@ -216,7 +215,7 @@ for (let i = 0; i < inputs.length; i++) {
           misstakeLetters.innerHTML += "," + wrongLetter;
         }
       }
-      // Dodavanje pogrešnog pokušaja
+
       if (j < 5 && inputs[i].value !== "") {
         dots[j].classList.add("active");
         j++;
@@ -242,10 +241,15 @@ for (let i = 0; i < inputs.length; i++) {
     }
   });
 }
+function resetGame() {
+  inputs.forEach((input) => {
+    input.value = "";
+  });
+}
 
 btnRandom.addEventListener("click", (e) => {
   e.preventDefault();
-  resetGame();
+  randomGame();
 });
 
 btnReset.addEventListener("click", resetGame);
